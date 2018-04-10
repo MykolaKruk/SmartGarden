@@ -1,20 +1,21 @@
-﻿$base-color: #f7f7fa;
-$article-font-size: 13px;
-$font: Verdana;
+﻿$font: Verdana;
 
 body {
     font-family: $font;
-    background-color: $base-color;
 }
 
-div {
-    margin: 10px;
+.logo {
+    width: 180px;
+    margin: 20px 0px 0px 40px;
+}
 
-    .article {
-        font-size: $article-font-size;
+.menu {
+    ul {
+        list-style-type: none;
+
+        li {
+            display: inline;
+        }
     }
 }
 
-h2 {
-    font-size: $article-font-size+5;
-}
