@@ -1,11 +1,11 @@
 body {
-  font-family: Verdana; }
+  font-family: Verdana;
+  background-color: #f7f7fa; }
 
-.logo {
-  width: 180px;
-  margin: 20px 0px 0px 40px; }
+div {
+  margin: 10px; }
+  div .article {
+    font-size: 13px; }
 
-.menu ul {
-  list-style-type: none; }
-  .menu ul li {
-    display: inline; }
+h2 {
+  font-size: 18px; }

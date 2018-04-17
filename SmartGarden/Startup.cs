@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SmartGarden.Core.Data;
+using SmartGarden.Core.Entities;
 using SmartGarden.Core.Services;
 using SmartGarden.Data;
 using SmartGarden.Services;
@@ -29,7 +31,6 @@ namespace SmartGarden
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IHumidityService, HumidityService>();
             services.AddScoped<IFlowerService, FlowerService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -37,7 +38,20 @@ namespace SmartGarden
             {
                 swagger.SwaggerDoc("v1", new Info { Title = "SmartGarden" });
             });
+
+            // configure database context
             services.AddDbContext<FlowerpotContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // set up IdentityRole 
+            services.AddIdentity<AppUser, IdentityRole>(opts => {
+                    opts.Password.RequiredLength = 6;
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.Password.RequireLowercase = false;
+                    opts.Password.RequireUppercase = false;
+                    opts.Password.RequireDigit = false;
+                    opts.User.RequireUniqueEmail = true;
+                }).AddEntityFrameworkStores<FlowerpotContext>()
+                .AddDefaultTokenProviders();
 
             services.AddAutoMapper(a => a.AddProfile(new SmartGarden.Core.MappingProfile()));
 
@@ -54,7 +68,7 @@ namespace SmartGarden
                 try
                 {
                     var context = serviceProvider.GetRequiredService<FlowerpotContext>();
-                    FlowerpotInitializer.Initialize(context);
+                    FlowerpotInitializer.Initialize(context, app.ApplicationServices, Configuration).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -74,7 +88,9 @@ namespace SmartGarden
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SmartGarden");
             });
 
-            app.UseMvc();
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

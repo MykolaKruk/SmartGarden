@@ -1,34 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartGarden.Core.Entities;
 using System;
+using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SmartGarden.Data
 {
-    public class FlowerpotContext : DbContext
+    public class FlowerpotContext : IdentityDbContext<AppUser>
     {
         public FlowerpotContext(DbContextOptions<FlowerpotContext> options) : base(options)
         {
         }
 
-        public FlowerpotContext()
-        {
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Flower>()
-                .HasOne(p => p.Humidity)
-                .WithOne(i => i.Flower)
-                .HasForeignKey<Humidity>(b => b.FlowerId);
+            base.OnModelCreating(modelBuilder);
+
+            foreach (var relationship in modelBuilder.Entity<Flower>().Metadata.GetForeignKeys())
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+
+
+            //modelBuilder.Entity<Flower>()
+            //    .HasOne(item => item.WateringSettings)
+            //    .WithMany()
+            //    .HasForeignKey(item => item.WateringSettingsId)
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
+
         public DbSet<Flower> Flowers { get; set; }
-        public DbSet<Humidity> Humidities { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Flowerpotdb;Integrated Security=True");
-            }
-        }
+        public DbSet<FlowerType> FlowerTypes { get; set; }
+        public DbSet<MeasureUnit> MeasureUnits { get; set; }
+        public DbSet<WateringSettings> WateringSettingses { get; set; }
     }
 }

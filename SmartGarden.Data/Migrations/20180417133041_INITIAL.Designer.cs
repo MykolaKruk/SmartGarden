@@ -10,9 +10,10 @@ using SmartGarden.Data;
 namespace SmartGarden.Data.Migrations
 {
     [DbContext(typeof(FlowerpotContext))]
-    partial class FlowerpotContextModelSnapshot : ModelSnapshot
+    [Migration("20180417133041_INITIAL")]
+    partial class INITIAL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

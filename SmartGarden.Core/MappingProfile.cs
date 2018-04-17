@@ -12,9 +12,6 @@ namespace SmartGarden.Core
         {
             CreateMap<Flower, FlowerDto>();
             CreateMap<FlowerDto, Flower>();
-
-            CreateMap<Humidity, HumidityDto>();
-            CreateMap<HumidityDto, Humidity>();
         }
 
     }

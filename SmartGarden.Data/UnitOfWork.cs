@@ -9,22 +9,11 @@ namespace SmartGarden.Data
     public class UnitOfWork : IUnitOfWork
     {
         private FlowerpotContext _dbContext;
-        private IHumidityRepository _humidityRepository;
         private IFlowerRepository _flowerRepository;
 
-        public UnitOfWork()
+        public UnitOfWork(FlowerpotContext context)
         {
-            _dbContext = new FlowerpotContext();
-        }
-
-        public IHumidityRepository HumidityRepository
-        {
-            get
-            {
-                if (_humidityRepository == null)
-                    _humidityRepository = new HumidityRepository(_dbContext);
-                return _humidityRepository;
-            }
+            _dbContext = context;
         }
 
         public IFlowerRepository FlowerRepository
