@@ -1,0 +1,202 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>SmartGarden</title>
+
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Bootstrap grid CSS -->
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container-fluid">
+            <div class="row justify-content-between header-content">
+                <div class="col-md-auto">
+                    <img src="img/logo.png" class="logo">
+                </div>
+                <div class="col-md-auto">
+                    <div class="row align-items-center control-header">
+                        <div class="col-md-auto">
+                            <i class="fa fa-commenting-o" style="font-size: 75px;padding-right: 60px;color: white;" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-md-auto">
+                            <img src="img/avatar.png" class="avatar">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="menu">
+                            <ul>
+                                <li>На головну</li>
+                                <li>Замовити</li>
+                                <li>Що це?</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container" style="background: #EAEDE8; padding-bottom: 45px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <center><h2 class="flower-name" ">Папороть</h2></center>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div>
+                        <center>
+                            <img src="img/flower.jpg" class="flower-foto">
+                        </center>
+                    </div>
+                    <div class="flower-information" style="    margin-top: 30px;">
+                        <center>
+                            <a href="#">Інформація про квітку</a>
+                        </center>
+
+                    </div>
+                    <div class="row justify-content-between" style="margin-top: 40px;">
+                        <div class="col-md-6">
+                            <center>
+                                <i class="fa fa-play" aria-hidden="true" style="    color: white;
+    font-size: 52px;
+    border: 1px solid;
+    border-radius: 25%;
+    background: #39DE02;
+    padding: 5px 13px 5px 17px;"></i>
+                                <p>Підлити</p>
+                            </center>
+
+                        </div>
+                        <div class="col-md-6">
+                            <center>
+                                <i class="fa fa-cog" style="color: white;
+    font-size: 52px;
+    border: 1px solid;
+    border-radius: 25%;
+    background: #7F8C7A;
+    padding: 5px 13px 5px 17px;" aria-hidden="true"></i>
+                                <p>Налаштування</p>
+                        </div>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <canvas id="polarChart"></canvas>
+                    <div style="margin-top: 30px;">
+                        <center>
+                            <p style="font-size: 30px;">Кількість підливу на день</p>
+                            <div class="input-group" id="spinner">
+                                <span class="input-group-btn btn-group-sm">
+                                    <button type="button" class="btn btn-danger" data-action="decrement"><span class="fa fa-minus"></span></button>
+                                </span>
+
+                                <input name="qty" type="text" class="form-control text-center" value="1" min="1" max="10" disabled>
+
+                                <span class="input-group-btn btn-group-sm">
+                                    <button type="button" class="btn btn-success" data-action="increment"><span class="fa fa-plus"></span></button>
+                                </span>
+                            </div>
+                        </center>
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-1 left-buttons-menu">
+                    <i class="fa fa-list-ul" aria-hidden="true" style="background: #4F7849;"></i>
+                    <i class="fa fa-font-awesome" aria-hidden="true" style="background: #8786B3"></i>
+                    <i class="fa fa-tint" aria-hidden="true" style="background: #263B99"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        <center>SmartGarden - 2018</center>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Bootstrap core JavaScript ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+
+    <script type="text/javascript">
+			//polar
+			var ctxPA = document.getElementById("polarChart").getContext('2d');
+			var myPolarChart = new Chart(ctxPA, {
+			    type: 'polarArea',
+			    data: {
+			        labels: ["Зволоженість", "Сухість", "Земля", "Добрива", "Повітря"],
+			        datasets: [
+			            {
+			                data: [22, 45, 99, 76, 69],
+			                backgroundColor: ["rgba(219, 0, 0, 0.1)", "rgba(0, 165, 2, 0.1)", "rgba(255, 195, 15, 0.2)", "rgba(55, 59, 66, 0.1)", "rgba(0, 0, 0, 0.3)"],
+			                hoverBackgroundColor: ["rgba(219, 0, 0, 0.2)", "rgba(0, 165, 2, 0.2)", "rgba(255, 195, 15, 0.3)", "rgba(55, 59, 66, 0.1)", "rgba(0, 0, 0, 0.4)"]
+			            }
+			        ]
+			    },
+			    options: {
+			        responsive: true
+			    }
+			});
+    </script>
+
+    <script type="text/javascript">
+			jQuery(document).ready(function(){
+			    $('#spinner button').on('click', function(){
+			        let input = $(this).closest('#spinner').find('input[name=qty]');
+
+			        if($(this).data('action') === 'increment') {
+			            if(input.attr('max') === undefined || parseInt(input.val()) < parseInt(input.attr('max'))) {
+			                input.val(parseInt(input.val(), 10) + 1);
+			            }
+			        } else if($(this).data('action') === 'decrement') {
+			            if(input.attr('min') === undefined || parseInt(input.val()) > parseInt(input.attr('min'))) {
+			                input.val(parseInt(input.val(), 10) - 1);
+			            }
+			        }
+			    });
+			});
+
+    </script>
+
+</body>
+</html>
