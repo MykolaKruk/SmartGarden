@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartGarden.Core;
+using SmartGarden.Core.Services;
 
 namespace SmartGarden.API.Controllers
 {

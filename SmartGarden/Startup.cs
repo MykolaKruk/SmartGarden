@@ -32,6 +32,9 @@ namespace SmartGarden
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IFlowerService, FlowerService>();
+            services.AddScoped<IFlowerTypeService, FlowerTypeService>();
+            services.AddScoped<IMeasureUnitService, MeasureUnitService>();
+            services.AddScoped<IWateringSettingsService, WateringSettingsService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddSwaggerGen(swagger =>
